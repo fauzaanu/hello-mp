@@ -67,7 +67,7 @@ def get_member_party(url) -> str:
     pass
 
 
-def send_message():
+def send_message(message:str) -> None:
     """sends the message to all the members"""
     links = extact_member_urls()
 
@@ -77,7 +77,7 @@ def send_message():
 
     for link in links:
         token = get_token(link, fail=True)
-        message = requests.post(link, data={"_token": token, "m": "hello mp"})
+        message = requests.post(link, data={"_token": token, "m": message})
         mp_name = get_member_name(link)
         if message.status_code == 405:
             print("Message to {} failed".format(mp_name))
@@ -86,4 +86,4 @@ def send_message():
 
 
 if __name__ == "__main__":
-    send_message()
+    send_message("hello mp")
