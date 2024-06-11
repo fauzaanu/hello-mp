@@ -85,28 +85,5 @@ def send_message():
         break  # lets actually not send the message to everyone
 
 
-def fail_message():
-    """exploring what majlis api does when we provide the wrong token.
-
-    6/12/2024: endpoint responds with a 405 : HTML says "Whoops, looks like something went wrong."
-    """
-    links = extact_member_urls()
-
-    # random sort : so we dont spam the same person while testing
-    import random
-    random.shuffle(links)
-
-    for link in links:
-        token = "wrong_token"
-        message = requests.post(link, data={"_token": token, "m": "hello mp"})
-        mp_name = get_member_name(link)
-        if message.status_code == 405:
-            print("Message to {} failed".format(mp_name))
-            break
-        break  # lets actually not send the message to everyone
-
-
 if __name__ == "__main__":
-    # send_message()
-    fail_message()
-    # get_member_name("https://majlis.gov.mv/en/20-parliament/members/175")
+    send_message()
